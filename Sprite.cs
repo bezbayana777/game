@@ -26,4 +26,9 @@ internal class Sprite
     {
        
     }
+
+    public virtual void Draw(SpriteBatch spriteBatch)
+    {
+        
+    }
 }
