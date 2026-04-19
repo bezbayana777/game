@@ -19,6 +19,12 @@
 /processorParam:Quality=Best
 /build:audio/knife.mp3
 
+#begin audio/start-scene-bg.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/start-scene-bg.mp3
+
 #begin fonts/chicle-font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -65,7 +71,7 @@
 /processorParam:TextureFormat=Color
 /build:images/enemy/gorgon.png
 
-#begin images/hero/attack/lancer_right_attack_1.png
+#begin images/hero/attack/down.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -75,9 +81,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/hero/attack/lancer_right_attack_1.png
+/build:images/hero/attack/down.png
 
-#begin images/hero/attack/lancer_right_attack_2.png
+#begin images/hero/attack/right.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -87,9 +93,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/hero/attack/lancer_right_attack_2.png
+/build:images/hero/attack/right.png
 
-#begin images/hero/attack/lancer_rigth_attack_3.png
+#begin images/hero/attack/up.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -99,7 +105,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/hero/attack/lancer_rigth_attack_3.png
+/build:images/hero/attack/up.png
 
 #begin images/hero/lancer_idle.png
 /importer:TextureImporter

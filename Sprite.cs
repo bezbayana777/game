@@ -29,6 +29,6 @@ internal class Sprite
 
     public virtual void Draw(SpriteBatch spriteBatch)
     {
-        
+        spriteBatch.Draw(texture, position , Color.White);
     }
 }

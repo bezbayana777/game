@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace MyGame;
 
@@ -13,14 +14,18 @@ public class StartScene: IScene
     private SceneManager _sceneManager;
     private GraphicsDeviceManager _graphics;
     private Texture2D _background;
+    private Song _song;
 
-    public StartScene(ContentManager contentManager, SceneManager sceneManager)
+    public StartScene(ContentManager contentManager, SceneManager sceneManager, GraphicsDeviceManager graphics)
     {
         _sceneManager =  sceneManager;
         _contentManager = contentManager;
+        _graphics = graphics;
     }
     public void Load()
     {
+        _song = _contentManager.Load<Song>("audio/start-scene-bg");
+        MediaPlayer.Play(_song);
         _background = _contentManager.Load<Texture2D>("images/bg");
         
     }
@@ -29,7 +34,7 @@ public class StartScene: IScene
     {
         if (Keyboard.GetState().IsKeyDown(Keys.Space))
         {
-            _sceneManager.AddScene(new GameScene(_contentManager));
+            _sceneManager.AddScene(new GameScene(_contentManager, _graphics));
         }
     }
 

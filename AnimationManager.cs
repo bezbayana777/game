@@ -53,4 +53,11 @@ internal class AnimationManager
         
         return new Rectangle(x, 0, (int)_size.X, (int)_size.Y);
     }
+    
+    // В AnimationManager.cs добавьте:
+    public void Reset()
+    {
+        _activeFrame = 0;
+        _counter = 0;
+    }
 }

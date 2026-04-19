@@ -17,6 +17,7 @@ public class GameScene : IScene
     private GraphicsDeviceManager _graphics;
     private List<Sprite> _sprites;
     private Texture2D _enemySpriteSheet;
+    private FollowCamera _camera;
 
     private Player _player;
     private SpriteFont _font;
@@ -27,9 +28,10 @@ public class GameScene : IScene
     
     private KeyboardState _prevKBDstate = Keyboard.GetState();
     
-    public GameScene(ContentManager contentManager)
+    public GameScene(ContentManager contentManager, GraphicsDeviceManager graphics)
     {
         _contentManager = contentManager;
+        _graphics = graphics;
         _enemies = new List<EnemyData>();
     }
 
@@ -38,7 +40,7 @@ public class GameScene : IScene
         _player = new Player(new Vector2(300, 400), _contentManager);
         _enemySpriteSheet = _contentManager.Load<Texture2D>("images/enemy/gorgon_idle");
         _song = _contentManager.Load<Song>("audio/knife");
-        
+        _camera = new FollowCamera(Vector2.Zero);
         
         var gap = 100;
         for (var i = 0; i < 10; i++)
@@ -78,6 +80,13 @@ public class GameScene : IScene
 
         var heroRect = _player.Rectangle;
         
+        _camera.Follow(_player.position, new Vector2(
+            _graphics.PreferredBackBufferWidth,   
+            _graphics.PreferredBackBufferHeight  
+        ));
+        
+        
+        
         // Проверяем столкновения (идем с конца, чтобы безопасно удалять)
         for (var i = _enemies.Count - 1; i >= 0; i--)
         {
@@ -88,10 +97,11 @@ public class GameScene : IScene
                 65, 87
             );
             
-            if (heroRect.Intersects(enemyRect))
+            
+            if (heroRect.Intersects(enemyRect) && _player.isAttacking)
             {
                 _enemies.RemoveAt(i);
-                _coins++; // Увеличиваем счет монет
+                _coins++; 
                 Console.WriteLine($"Collision! Coins: {_coins}");
             }
         }
@@ -101,15 +111,18 @@ public class GameScene : IScene
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        // Рисуем игрока
-        _player.Draw(spriteBatch);
+
+        _player.Draw(spriteBatch, _camera.position);
+        spriteBatch.DrawString(_font, $"Player state: {_player.isAttacking}", new Vector2(300,300), Color.White);
         
         // Рисуем всех врагов
-        foreach (var enemy in _enemies)
+        foreach (var enemy in _enemies) 
         {
+
+            var cameraOffset = enemy.Position - _camera.position;
             spriteBatch.Draw(
                 _enemySpriteSheet, 
-                new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, 65, 87), 
+                new Rectangle((int)(cameraOffset.X), (int)(cameraOffset.Y), 65, 87), 
                 enemy.Animation.GetFrame(), 
                 Color.White
             );
